@@ -13,11 +13,13 @@ print(file_as_string, '\n')
 # s = ' '.join(s.split()[::-1])
 s_new = ''
 check = 0
+
 for x in file_as_string:
     if x == '.' and check == 0:
         s_new = ' '.join(s_new.split()[::-1])
         check = 1
     s_new += x
+
 file_as_string = s_new
 print(file_as_string, '\n')
 
