@@ -1,6 +1,3 @@
-from typing import List
-
-
 def countnod(a, b):  # Алгоритм Евклида
     if a < b:
         temp = b
@@ -27,4 +24,11 @@ def countnok_n(l: list):
 
     return a
 
-print(countnok_n([2, 7, 5, 6]))
+
+def countnod_n(l):
+    return min([countnod(x, y) for x in l for y in l])
+
+
+l = list(map(int, input("Input list - ").split()))
+print(f"Nod - {countnod_n(l)}")
+print(f"NOK - {countnok_n(l)}")

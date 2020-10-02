@@ -2,23 +2,22 @@ import math
 
 
 def F(x):
-    return 0.1 * math.pow(x, 2) - x * math.log(x)
+    return x**2-9
 
 
 # производная
 def F1(x):
-    return 0.2 * x - math.log(x) - 1
+    return 2*x
 
 
-def Method(a, b):
+def Method(a, b, c=5):
     try:
         x0 = (a + b) / 2
         xn = F(x0)
         xn1 = xn - F(xn) / F1(xn)
-        while abs(xn1 - xn) > math.pow(10, -5):
+        while abs(xn1 - xn) > math.pow(10, -1*c):
             xn = xn1  # вот так надо было
             xn1 = xn - F(xn) / F1(xn)
         return xn1
     except ValueError:
-        print
-        "Value not invalidate"
+        print("Value not invalidate")

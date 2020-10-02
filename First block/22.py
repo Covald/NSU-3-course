@@ -1,29 +1,29 @@
-import numpy as np
-from scipy.integrate import odeint
-import matplotlib.pyplot as plt
+from numpy import *
+import pylab as p
+from scipy import integrate
 
-#a, b, c, d = [0.8, 0.5, 0.8, 0.5]  # map(float, input("Enter a, b, c, d -").split())
-a = 1.
-b = 0.1
-c = 1.5
-d = 0.75
-base = [2, 5]  # map(int, input("Enter x and y - ").split())
+a, b, c, d = [1., 0.1, 1.5, 0.75]  # map(float, input("Enter a, b, c, d -").split())
+X0 = array([200, 100])  # array(map(float, input("Enter x0 y0 - ").split()))
 
 
-# create function
-def f(y, t):
-    y1, y2 = y
-    return [(a - b * y1) * y2, (-b + c * y2) * y1]
+def dX_dt(X, t=0):
+    return array([a * X[0] - b * X[0] * X[1],
+                  -c * X[1] + d * b * X[0] * X[1]])
 
 
-t = np.linspace(0, 10, 41)  # vector of time
-y0 = base  # start value
-w = odeint(f, y0, t)  # solve eq.
-y1 = w[:, 0]
-y2 = w[:, 1]
-fig = plt.figure(facecolor='white')
-plt.plot(t, y1, '-o', t, y2, '-o', linewidth=2)
-plt.ylabel("z")
-plt.xlabel("t")
-plt.grid(True)
-plt.show()  # display
+X_f0 = array([2., 5.])
+t = linspace(0, 30, 10000)  # time
+
+X, infodict = integrate.odeint(dX_dt, X0, t, full_output=True)
+
+Herbivorous, Predators = X.T
+
+f1 = p.figure()
+p.plot(t, Herbivorous, 'r-', label='Herbivorous')
+p.plot(t, Predators, 'b-', label='Predators')
+p.grid()
+p.legend(loc='best')
+p.xlabel('time')
+p.ylabel('population')
+p.title('Evolution of predators and herbivorous populations')
+p.show()

@@ -13,6 +13,7 @@ array_int = numpy.random.randint(0, 101, 10)
 array_complex = numpy.array([complex(random.random() * 100, random.random() * 100) for i in range(10)])
 array_string = [buildblock(random.randint(1, 10)) for i in range(10)]
 tuple_string = tuple(array_string)
+
 print(f"Array of int {array_int}")
 print(f"Sorted array_int by increase - {sorted(array_int)}")
 print(f"Array of int {array_complex}")
