@@ -1,5 +1,3 @@
-from uuid import uuid4
-
 
 x = input("Enter first string - ")
 y = input("Enter second string - ")
