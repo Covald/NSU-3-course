@@ -1,13 +1,9 @@
-from uuid import uuid4
-
-from urllib3.connectionpool import xrange
-
 x = input("Enter first string - ")
 y = input("Enter second string - ")
 
 
 def fill_dyn_matrix(x, y):
-    L = [[0] * (len(y) + 1) for _ in xrange(len(x) + 1)]
+    L = [[0] * (len(y) + 1) for _ in range(len(x) + 1)]
     for x_i, x_elem in enumerate(x):
         for y_i, y_elem in enumerate(y):
             if x_elem == y_elem:
