@@ -5,15 +5,15 @@ def countnod(a, b):  # Алгоритм Евклида
         a = temp
 
     while b != 0:
-        x = a % b;
-        a = b;
-        b = x;
+        x = a % b
+        a = b
+        b = x
 
     return a
 
 
 def countnok_ab(a, b):
-    return (a * b / countnod(a, b));
+    return (a * b / countnod(a, b))
 
 
 def countnok_n(l: list):
@@ -25,7 +25,7 @@ def countnok_n(l: list):
     return a
 
 
-def countnod_n(l):
+def countnod_n(l: list):
     return min([countnod(x, y) for x in l for y in l])
 
 

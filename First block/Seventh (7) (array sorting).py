@@ -16,7 +16,7 @@ tuple_string = tuple(array_string)
 
 print(f"Array of int {array_int}")
 print(f"Sorted array_int by increase - {sorted(array_int)}")
-print(f"Array of int {array_complex}")
+print(f"Array of complex {array_complex}")
 print(f"Sorted by abs - {sorted(array_complex, key=abs)}")
 print(f"Sorted by real part - {sorted(array_complex, key=lambda x: x.real)}")
 print(f"list of string - {array_string}")

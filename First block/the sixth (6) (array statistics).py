@@ -1,8 +1,8 @@
 import numpy as np
 from scipy import stats
 
-array = np.random.randint(0, 101, 1000)
-
+array = np.random.randint(0, 101, 100)
+#array = list(map(int, input().split()))
 print(array)
 print(f"min - {min(array)}, max - {max(array)} ")
 print(f"average - {np.average(array)}")

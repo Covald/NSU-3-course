@@ -6,13 +6,13 @@ a, b, c, d = [1., 0.1, 1.5, 0.75]  # map(float, input("Enter a, b, c, d -").spli
 X0 = array([200, 100])  # array(map(float, input("Enter x0 y0 - ").split()))
 
 
-def dX_dt(X, t=0):
+def dX_dt(X):
     return array([a * X[0] - b * X[0] * X[1],
                   -c * X[1] + d * b * X[0] * X[1]])
 
 
 X_f0 = array([2., 5.])
-t = linspace(0, 30, 10000)  # time
+t = linspace(0, 30, 1000)  # time
 
 X, infodict = integrate.odeint(dX_dt, X0, t, full_output=True)
 
