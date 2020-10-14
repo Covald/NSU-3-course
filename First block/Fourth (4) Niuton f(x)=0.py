@@ -10,7 +10,7 @@ def F1(x):
     return 2*x
 
 
-def Method(a, b, c=5):
+def Method(a, b, c=-5):
 
     x0 = (a + b) / 2
     xn = F(x0)
@@ -21,6 +21,6 @@ def Method(a, b, c=5):
     return xn1
 
 
-
+print(Method(-1000, 1000))
 
 

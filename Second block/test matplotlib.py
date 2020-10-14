@@ -4,20 +4,24 @@ import sympy
 import matplotlib.pyplot as plt
 
 sympy.init_printing(use_unicode=False, wrap_line=True)
-x, y = sympy.symbols("x y")
-a = numpy.pi / 4
+x, y, a, b, t = sympy.symbols("x y a b t")
+Yt = sympy.Function("Y_t")
+Vy = sympy.Function("Vy_t")
+Yx = sympy.Function("Y_x")
+Xt = sympy.Function("X_t")
 g = 9.81
 v0 = 15
 
 Vx0 = v0 * sympy.cos(a)
 Vy0 = v0 * sympy.sin(a)
 
+Ay = lambda k: -g - b * Vy(k).diff() * sympy.sign(Vy(k))
+#Ax = lambda k: -g - b * c
+#sympy.Equality
 
-def y(k):
-    return k * numpy.tan(a) - k ** 2 * (g / Vy0 ** 2 / 2) * (1 + numpy.tan(a) ** 2)
+print(sympy.dsolve(Vy(t) - Ay(t)))
+#expr = sympy.solve(Vy(0)-Vy0)
 
-
-x_ax = numpy.linspace(0, v0 ** 2 * numpy.sin(2 * a) / g, 100)
-plt.axis([0, 100, 0, 100])
-plt.plot(x_ax, y(x_ax))
-plt.show()
+# expr =
+# sympy.dsolve(Vy(0))
+# print(sympy.dsolve((Yt(t).diff(2) - Ay(t), Yt(0).diff() - Vy0, Yt(0))))
