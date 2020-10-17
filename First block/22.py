@@ -1,5 +1,5 @@
 from numpy import *
-import pylab as p
+import pylab as plt
 from scipy import integrate
 
 a, b, c, d = [1., 0.1, 1.5, 0.75]  # map(float, input("Enter a, b, c, d -").split())
@@ -18,12 +18,12 @@ X, infodict = integrate.odeint(dX_dt, X0, t, full_output=True)
 
 Herbivorous, Predators = X.T
 
-f1 = p.figure()
-p.plot(t, Herbivorous, 'r-', label='Herbivorous')
-p.plot(t, Predators, 'b-', label='Predators')
-p.grid()
-p.legend(loc='best')
-p.xlabel('time')
-p.ylabel('population')
-p.title('Evolution of predators and herbivorous populations')
-p.show()
+f1 = plt.figure()
+plt.plot(t, Herbivorous, 'r-', label='Herbivorous')
+plt.plot(t, Predators, 'b-', label='Predators')
+plt.grid()
+plt.legend(loc='best')
+plt.xlabel('time')
+plt.ylabel('population')
+plt.title('Evolution of predators and herbivorous populations')
+plt.show()

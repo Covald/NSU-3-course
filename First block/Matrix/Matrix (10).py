@@ -31,7 +31,6 @@ def save_matrix(matrix):
     except Exception as error:
         print('\n', error)
 
-
     try:
         with open('matrix') as f:
             l = f.readlines()
@@ -40,6 +39,7 @@ def save_matrix(matrix):
             print('\nОбратная матрица из файла:\n', np.linalg.inv(m))
     except Exception as err:
         print(err)
+
 
 start = time()
 np.linalg.inv(np.random.randint(-50, 50, (10, 10)))
@@ -58,4 +58,3 @@ print('\nВремя обращения матрицы 1000х1000: ', time() - st
 # print('\nВремя обращения матрицы 8728х8728(макс): ', time() - start)
 
 save_matrix(np.linalg.inv(m1))
-

@@ -2,15 +2,15 @@ import math
 
 
 def F(x):
-    return x**2-9
+    return math.cos(x)
 
 
 # производная
 def F1(x):
-    return 2*x
+    return math.sin(x)
 
 
-def Method(a, b, c=-5):
+def Method(a, b, c=5):
 
     x0 = (a + b) / 2
     xn = F(x0)
