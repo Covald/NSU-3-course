@@ -6,7 +6,7 @@ a, b, c, d = [1., 0.1, 1.5, 0.75]  # map(float, input("Enter a, b, c, d -").spli
 X0 = array([200, 100])  # array(map(float, input("Enter x0 y0 - ").split()))
 
 
-def dX_dt(X):
+def dX_dt(X, t=0):
     return array([a * X[0] - b * X[0] * X[1],
                   -c * X[1] + d * b * X[0] * X[1]])
 
