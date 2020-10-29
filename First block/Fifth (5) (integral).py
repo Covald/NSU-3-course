@@ -25,7 +25,7 @@ def main(expr=None, a=None, b=None):
     b = sympify(b)
     expr = lambdify(x, expr, 'scipy')
 
-    print(f"Численно - {sum(integ.quad(expr, a, b))}")
+    print(f"Численно - {integ.quad(expr, a, b)}")
 
 
 def test():
