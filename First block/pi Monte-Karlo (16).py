@@ -2,14 +2,13 @@ import timeit
 from pylab import plot, show, axis
 from numpy import random, sqrt, pi
 
-# scattering n points over the unit square
+
 n = 10 ** 9
 
 
 def test(data):
     p = random.rand(n, 2)
 
-    # counting the points inside the unit circle
     idx = sqrt(p[:, 0] ** 2 + p[:, 1] ** 2) < 1
 
     plot(p[idx, 0], p[idx, 1], 'b.')  # point inside
