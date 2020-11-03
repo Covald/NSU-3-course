@@ -1,6 +1,6 @@
-from numpy import pi, sin, cos, abs, sqrt, linspace
-from pylab import plot, show, axis
 import matplotlib.pyplot as plt
+from numpy import pi, sin, cos, abs, sqrt, linspace
+
 
 def main():
     def y(t):
@@ -8,9 +8,6 @@ def main():
 
     t = linspace(-pi, pi, 1000)
 
-    # plot(y(t)*cos(t), y(t)*sin(t))
-    # axis([-pi, pi, -pi, pi])
-    # show()
     fig = plt.figure()
     ax1 = fig.add_subplot(projection='polar')
     ax1.plot(t, y(t))
