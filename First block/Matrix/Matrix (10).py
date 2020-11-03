@@ -24,7 +24,7 @@ def main():
     except:
         print('\n\nОбратные матрицы не существуют')
 
-    def save_matrix(matrix, filename: str = "result.txt"):
+    def save_matrix(matrix, filename: str = "matrix.txt"):
         try:
             np.savetxt(filename, matrix, delimiter=",")
         except Exception as err:
@@ -50,8 +50,8 @@ def main():
     np.linalg.inv(np.random.randint(-50, 50, (1000, 1000)))
     print('\nВремя обращения матрицы 1000х1000: ', time() - start)
 
-    save_matrix(np.linalg.inv(m1))
-    load()
+    save_matrix(m1)
+    m1 = load()
 
 
 if __name__ == "__main__":
