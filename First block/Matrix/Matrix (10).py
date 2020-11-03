@@ -23,20 +23,18 @@ except:
     print('\n\nОбратные матрицы не существуют')
 
 
-def save_matrix(matrix):
+def save_matrix(matrix, filename: str = "result.txt"):
     try:
-        with open('result.txt', 'w') as g:
-            g.write(str(matrix))
+        np.savetxt(filename, matrix, delimiter=",")
+    except Exception as err:
+        print(err)
 
-    except Exception as error:
-        print('\n', error)
 
+def load(filename: str = "matrix.txt") -> np.array:
     try:
-        with open('matrix') as f:
-            l = f.readlines()
-            l1 = [list(map(int, l[i].split())) for i in range(len(l))]
-            m = np.array(l1)
-            print('\nОбратная матрица из файла:\n', np.linalg.inv(m))
+        matrix = np.loadtxt(filename, delimiter=",")
+        print('\nОбратная матрица из файла:\n', np.linalg.inv(matrix))
+        return matrix
     except Exception as err:
         print(err)
 
@@ -53,8 +51,5 @@ start = time()
 np.linalg.inv(np.random.randint(-50, 50, (1000, 1000)))
 print('\nВремя обращения матрицы 1000х1000: ', time() - start)
 
-# start = time()
-# np.linalg.inv(np.random.randint(-50, 50, (8728, 8728)))
-# print('\nВремя обращения матрицы 8728х8728(макс): ', time() - start)
-
 save_matrix(np.linalg.inv(m1))
+load()
