@@ -1,21 +1,25 @@
-import random
-import numpy as np
-import matplotlib.pyplot as plt
+import timeit
+from pylab import plot, show, axis
+from numpy import random, sqrt, pi
 
-r = random.randint
-xl, yl = [], []
+# scattering n points over the unit square
+n = 10 ** 9
 
-xs = np.random.uniform(-1, 1, 10**6)
-ys = np.random.uniform(-1, 1, 10**6)
 
-for i in range(len(xs)):
-    if np.sqrt(xs[i] ** 2 + ys[i] ** 2) <= 1:
-        xl.append(xs[i])
-        yl.append(ys[i])
+def test(data):
+    p = random.rand(n, 2)
 
-print(len(xl) / len(xs))
-print(4 * len(xl) / len(xs))
+    # counting the points inside the unit circle
+    idx = sqrt(p[:, 0] ** 2 + p[:, 1] ** 2) < 1
 
-plt.scatter(xs, ys, marker='.', s=0.5)
-plt.scatter(xl, yl, marker='.', alpha=1, s=0.5)
-plt.show()
+    plot(p[idx, 0], p[idx, 1], 'b.')  # point inside
+    plot(p[idx == False, 0], p[idx == False, 1], 'r.')  # point outside
+    axis([-0.1, 1.1, -0.1, 1.1])
+    # show()
+
+
+print(timeit.timeit("test(n)", setup="from __main__ import test, n", number=1))
+
+# estimation of pi
+# print('%0.16f' % (sum(idx).astype('double') / n * 4), 'result')
+# print('%0.16f' % pi, 'real pi')
