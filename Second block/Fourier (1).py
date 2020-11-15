@@ -1,11 +1,7 @@
-from numpy import array, arange, abs as np_abs, sin, pi, cos, linspace, amax
-from numpy.fft import rfft, rfftfreq
 from numpy.random import uniform
-import numpy as np
-from scipy import fft
 from pylab import *
+from scipy import fft
 from scipy import signal
-import scipy
 
 
 def create_signal(n: array, fs: float) -> array:
