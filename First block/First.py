@@ -1,4 +1,6 @@
 from cmath import sqrt
+
+
 def func(a, b, c):
     d = b ** 2 - 4 * a * c
     print(f"Discriminant is {d}")
@@ -11,8 +13,5 @@ def func(a, b, c):
     else:
         return [(-b.real + sqrt(d)) / (2 * a.real), (-b.real - sqrt(d)) / (2 * a.real)]
 
-
 # a, b, c = map(int, input("Input a,b,c from ax^2+bx+c=0 - ").split())
 # print(f"Answer - {func(a, b, c)}")
-
-

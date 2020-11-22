@@ -1,13 +1,14 @@
-from First import *
+import pytest
+from First import func
 from cmath import sqrt
-import unittest as ts
 
 
-def test_one():
-    ts.TestCase.assertRaises(ValueError, func(0, 0, 0))
+def test_1():
+    with pytest.raises(ValueError):
+        func(0, 0, 0)
 
 
-def test_two():
+def test_2():
     assert func(0, 1, 2) == [-2]
 
 
