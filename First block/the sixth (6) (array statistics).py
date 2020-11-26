@@ -1,7 +1,7 @@
 import numpy as np
 from scipy import stats
 
-array = np.random.randint(0, 101, 10**6)
+array = np.random.randint(0, 101, 10 ** 6)
 # array = list(map(int, input().split()))
 print(array)
 print(f"min - {np.min(array)}, max - {np.max(array)} ")
