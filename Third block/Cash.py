@@ -2,10 +2,10 @@ import time
 
 
 def time_of_function(function):
-    def wrapped(*args, **kwargs):
-        start_time = time.perf_counter()
-        res = function(*args, **kwargs)
-        print(time.perf_counter() - start_time)
+    def wrapped(*args):
+        start = time.perf_counter()
+        res = function(*args)
+        print('Time run:', time.perf_counter() - start)
         return res
 
     return wrapped
@@ -25,6 +25,7 @@ def cache(function):
     return wrapper
 
 
+
 @cache
 def fib(num):
     if num < 2:
@@ -32,16 +33,27 @@ def fib(num):
     return fib(num - 1) + fib(num - 2)
 
 
+@time_of_function
+@cache
+def long_sum(n):
+    sum = 0
+    for i in range(n):
+        sum += i
+    return sum
+
+
 def main():
     start = time.perf_counter()
-    fib(200)  # 0.003351
+    fib(10)  # 0.003351
     print('Time run:', time.perf_counter() - start)
     start = time.perf_counter()
-    fib(300)  # 0.37117
+    fib(400)  # 0.37117
     print('Time run:', time.perf_counter() - start)
     start = time.perf_counter()
     fib(400)  # 0.003351
     print('Time run:', time.perf_counter() - start)
+    long_sum(10 ** 7)  # 0.003351
+    long_sum(10 ** 7)  # 0.003351
 
 
 if __name__ == "__main__":

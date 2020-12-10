@@ -2,7 +2,7 @@ import math
 
 from sympy import symbols, integrate, lambdify, sympify
 from sympy.parsing.sympy_parser import parse_expr
-from scipy import integrate as integ
+
 
 
 def main(expr=None, a=None, b=None):
@@ -18,16 +18,16 @@ def main(expr=None, a=None, b=None):
     if not a or not b:
         a, b = input("Enter a, b - ").split()
 
-        
-    print(expr + "\n" + f"a = {a} \nb = {b}")
+    print(expr + "\n" + f"a = {a}" + "\n" + f"b = {b}")
     print(integrate(expr, x))
     print(integrate(expr, (x, a, b)))
+
+    from scipy import integrate as integ
 
     expr = sympify(expr)
     a = sympify(a)
     b = sympify(b)
     expr = lambdify(x, expr, 'scipy')
-
     print(f"Численно - {integ.quad(expr, a, b)}")
 
 
