@@ -19,6 +19,7 @@ def caching(timeout):
     assert timeout > 0, '"timeout" must be bigger 0, got {}.'.format(timeout)
 
     def param_decorator(func):
+        @functools.wraps(func)  # Замещает атрибуты обертки на оборачиваемые
         def inner(*args, **kwargs):
             key = args + tuple(kwargs)
             if key in cache_results and cache_results[key][0] + timeout >= time.time():
@@ -53,19 +54,21 @@ def main():
     start = time.perf_counter()
     fib(10)  # 0.003351
     print('Time run:', time.perf_counter() - start)
+
     start = time.perf_counter()
     fib(400)  # 0.37117
     print('Time run:', time.perf_counter() - start)
+
     start = time.perf_counter()
     fib(400)  # 0.003351
     print('Time run:', time.perf_counter() - start)
+
     long_sum(10 ** 8)  # 0.003351
     long_sum(10 ** 8)  # 0.003351
     time.sleep(20)
     long_sum(10 ** 8)  # 0.003351
     long_sum(10 ** 8)
 
+
 if __name__ == "__main__":
     main()
-
-
