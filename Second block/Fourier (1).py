@@ -8,9 +8,9 @@ from pylab import subplot, plot, xlabel, ylabel, show, axis, axes
 from numpy.fft import rfft, irfft
 import scipy as sp
 
-FD = 1024 * 10  # discr frequency
-t = FD * 10  # 20 sec
-t = linspace(0, 20 * pi, t)
+FD = 40800  # discr frequency
+t = 20    # 20 sec 20/FD 0.0001
+t = linspace(0, t*2*pi, int(2*pi*FD))
 
 
 def plot_spectrum(signal: array, pos: list or tuple):
@@ -33,9 +33,9 @@ def plot_spectrum(signal: array, pos: list or tuple):
 
 
 def main():
-    first = 3 * sin(2 * pi * 5 * t)
-    second = 5 * sin(2 * pi * 15 * t)
-    third = 7 * sin(2 * pi * 45 * t)
+    first = 7 * sin(2 * pi * 4.8 * t)
+    second = 7 * sin(2 * pi * 5 * t)
+    third = 7 * sin(2 * pi * 5.2 * t)
     signal = first + second + third
     noise = (np.random.random(t.shape) - 0.5) * np.random.random(t.shape) * 50
 
@@ -66,7 +66,7 @@ def main():
     y = rfft(signal_with_noise) / n  # fft computing and normalization
     y = y[range(int(n / 2))]
 
-    border = np.amax(np.absolute(y)) * 0.09  # Все сигналы меньше 20% максимальной амплитуды будем считать шумом
+    border = np.amax(np.absolute(y)) * 0.20  # Все сигналы меньше 20% максимальной амплитуды будем считать шумом
     y_cut = y.copy()
     y_cut[np.absolute(y) < border] = 0
 
@@ -78,7 +78,7 @@ def main():
     signal = irfft(y_cut) * n
 
     subplot(233).grid(True)
-    plot(t[:-2], signal, "red")
+    plot(t[:-3], signal, "red")
     xlabel('Time')
     ylabel('Amplitude')
 

@@ -1,3 +1,4 @@
+import functools
 import time
 
 
@@ -11,20 +12,28 @@ def time_of_function(function):
     return wrapped
 
 
-def cache(function):
-    print(f"cahed function - {function.__name__}")
-    cache = {}
+def caching(timeout):
+    cache_results = {}
 
-    def wrapper(*args, **kwargs):
-        cache_key = args + tuple(kwargs.items())
-        if cache_key not in wrapper.cache:
-            cache[cache_key] = function(*args, **kwargs)
-        return cache[cache_key]
+    assert isinstance(timeout, int), "Wrong type, expected <type 'int'>, got {}.".format(type(timeout))
+    assert timeout > 0, '"timeout" must be bigger 0, got {}.'.format(timeout)
 
-    return wrapper
+    def param_decorator(func):
+        def inner(*args, **kwargs):
+            key = args + tuple(kwargs)
+            if key in cache_results and cache_results[key][0] + timeout >= time.time():
+                return cache_results[key][1]
+            else:
+                value = (time.time(), func(*args, **kwargs))
+                cache_results[key] = value
+                return value[1]
+
+        return inner
+
+    return param_decorator
 
 
-@cache
+@caching(60)
 def fib(num):
     if num < 2:
         return num
@@ -32,7 +41,7 @@ def fib(num):
 
 
 @time_of_function
-@cache
+@caching(10)
 def long_sum(n):
     sum = 0
     for i in range(n):
@@ -50,9 +59,11 @@ def main():
     start = time.perf_counter()
     fib(400)  # 0.003351
     print('Time run:', time.perf_counter() - start)
-    long_sum(10 ** 7)  # 0.003351
-    long_sum(10 ** 7)  # 0.003351
-
+    long_sum(10 ** 8)  # 0.003351
+    long_sum(10 ** 8)  # 0.003351
+    time.sleep(20)
+    long_sum(10 ** 8)  # 0.003351
+    long_sum(10 ** 8)
 
 if __name__ == "__main__":
     main()
