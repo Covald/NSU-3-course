@@ -3,9 +3,9 @@ import time
 
 
 def time_of_function(function):
-    def wrapped(*args):
+    def wrapped(*args, **kwargs):
         start = time.perf_counter()
-        res = function(*args)
+        res = function(*args, **kwargs)
         print('Time run:', time.perf_counter() - start)
         return res
 
