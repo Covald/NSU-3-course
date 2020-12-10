@@ -15,15 +15,13 @@ def cache(function):
     print(f"cahed function - {function.__name__}")
     cache = {}
 
-    def wrapper(*args):
-        try:
-            return cache[args]
-        except KeyError:
-            cache[args] = function(*args)
-            return cache[args]
+    def wrapper(*args, **kwargs):
+        cache_key = args + tuple(kwargs.items())
+        if cache_key not in wrapper.cache:
+            cache[cache_key] = function(*args, **kwargs)
+        return cache[cache_key]
 
     return wrapper
-
 
 
 @cache
@@ -58,5 +56,3 @@ def main():
 
 if __name__ == "__main__":
     main()
-
-
