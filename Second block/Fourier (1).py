@@ -8,72 +8,72 @@ def main():
     """
     Constants
     """
-    FD = 90  # discr frequency 1/Td
-    TIME = 200  # sec
-    BORDER = 0.15  # граница среза от макс аплитуды
+    _FD = 90  # discr frequency 1/Td
+    _TIME = 200  # sec
+    _BORDER = 0.15  # граница среза от макс аплитуды
 
-    F_FIRST = 4.8
-    F_SECOND = 5
-    F_THIRD = 5.2
+    _F_FIRST = 4.8
+    _F_SECOND = 5
+    _F_THIRD = 5.2
 
-    A_FIRST = 5
-    A_SECOND = 7
-    A_THIRD = 9
+    _A_FIRST = 5
+    _A_SECOND = 7
+    _A_THIRD = 9
     """
     /Constants
     """
 
-    def plot_spectrum(signal: array, pos: int, fd: float, n: int):
+    def plot_spectrum(_signal: array, pos: int, fd: float, n: int):
         """
         Plot spectrum of signal (W0W)
         """
         frequency = rfftfreq(n, 1. / fd)
 
-        spectrum = rfft(signal) / n  # fft computing and normalization
+        _spectrum = rfft(_signal) / n  # fft computing and normalization
 
         subplot(pos).grid(True)  # plotting the spectrum
-        plot(frequency, np_abs(spectrum), 'r')
+        plot(frequency, np_abs(_spectrum), 'r')
         xlabel('Freq (Hz)')
         ylabel('|Y(freq)|')
 
-    w_first = (2. * pi * F_FIRST / FD)
-    w_second = (2. * pi * F_SECOND / FD)
-    w_third = (2. * pi * F_THIRD / FD)
+    w_first = (2. * pi * _F_FIRST / _FD)
+    w_second = (2. * pi * _F_SECOND / _FD)
+    w_third = (2. * pi * _F_THIRD / _FD)
 
-    len_of_array = TIME * FD  # len of array
+    len_of_array = _TIME * _FD  # len of array
     t = arange(len_of_array)
 
-    sig_first = A_FIRST * sin(w_first * t)
-    sig_second = A_SECOND * sin(w_second * t)
-    sig_third = A_THIRD * sin(w_third * t)
+    sig_first = _A_FIRST * sin(w_first * t)
+    sig_second = _A_SECOND * sin(w_second * t)
+    sig_third = _A_THIRD * sin(w_third * t)
 
     signal = sig_first + sig_second + sig_third
     noise = (random(t.shape) - 0.5) * random(t.shape) * 50
 
     subplot(231).grid(True)
-    plot(t / FD, sig_third, "green")
-    plot(t / FD, sig_second, "yellow")
-    plot(t / FD, sig_first, "blue")
-    plot(t / FD, signal, "red")
+    plot(t / _FD, sig_third, "green")
+    plot(t / _FD, sig_second, "gray")
+    plot(t / _FD, sig_first, "blue")
+    plot(t / _FD, signal, "red")
     xlabel('Time')
     ylabel('Amplitude')
 
-    plot_spectrum(signal, 234, FD, len_of_array)
+    plot_spectrum(signal, 234, _FD, len_of_array)
 
     subplot(232).grid(True)
     signal_with_noise = signal + noise
-    plot(t / FD, signal_with_noise, "b")
-    plot(t / FD, signal, "r")
+    plot(t / _FD, signal_with_noise, "b")
+    # plot(t / _FD, signal, "r")
     xlabel('Time')
     ylabel('Amplitude')
 
-    plot_spectrum(signal_with_noise, 235, FD, len_of_array)
+    plot_spectrum(signal_with_noise, 235, _FD, len_of_array)
 
-    frq = rfftfreq(len_of_array, 1. / FD)
+    frq = rfftfreq(len_of_array, 1. / _FD)
 
     spectrum = rfft(signal) / len_of_array  # fft computing and normalization
 
-    border = amax(absolute(spectrum)) * BORDER  # Режем шум по % от максимальной амплитуды
+    border = amax(absolute(spectrum)) * _BORDER  # Режем шум по % от максимальной амплитуды
     spectrum_cut = spectrum.copy()
     spectrum_cut[absolute(spectrum) < border] = 0
 
@@ -85,7 +85,7 @@ def main():
     signal = irfft(spectrum_cut) * len_of_array
 
     subplot(233).grid(True)
-    plot(t / FD, signal, "red")
+    plot(t / _FD, signal, "red")
     xlabel('Time')
     ylabel('Amplitude')
 
