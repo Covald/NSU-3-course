@@ -8,7 +8,7 @@ def main():
     """
     Constants
     """
-    _FD = 90  # discr frequency 1/Td
+    _FD = 90  # sampling frequency 1/Td
     _TIME = 200  # sec
     _BORDER = 0.15  # граница среза от макс аплитуды
 
