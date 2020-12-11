@@ -6,22 +6,19 @@ from pylab import subplot, plot, xlabel, ylabel, show
 
 def main():
     """
-    Constants
+    Settings
     """
-    _FD = 90  # sampling frequency 1/Td
-    _TIME = 200  # sec
-    _BORDER = 0.15  # граница среза от макс аплитуды
+    _FD = 1024  # sampling frequency 1/Td
+    _TIME = 20  # sec
+    _BORDER = 0.40  # граница среза от макс аплитуды
 
-    _F_FIRST = 4.8
-    _F_SECOND = 5
-    _F_THIRD = 5.2
+    _F_FIRST = 11
+    _F_SECOND = 29
+    _F_THIRD = 43
 
-    _A_FIRST = 5
+    _A_FIRST = 3
     _A_SECOND = 7
     _A_THIRD = 9
-    """
-    /Constants
-    """
 
     def plot_spectrum(_signal: array, pos: int, fd: float, n: int):
         """
@@ -63,7 +60,7 @@ def main():
     subplot(232).grid(True)
     signal_with_noise = signal + noise
     plot(t / _FD, signal_with_noise, "b")
-    # plot(t / _FD, signal, "r")
+    plot(t / _FD, signal, "r")
     xlabel('Time')
     ylabel('Amplitude')
 

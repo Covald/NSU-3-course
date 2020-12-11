@@ -12,7 +12,7 @@ def time_of_function(function):
     return wrapped
 
 
-def caching(timeout):
+def caching(timeout=600):
     cache_results = {}
 
     assert isinstance(timeout, int), "Wrong type, expected <type 'int'>, got {}.".format(type(timeout))
@@ -34,7 +34,7 @@ def caching(timeout):
     return param_decorator
 
 
-@caching(60)
+@caching()
 def fib(num):
     if num < 2:
         return num
@@ -52,7 +52,7 @@ def long_sum(n):
 
 def main():
     start = time.perf_counter()
-    fib(10)  # 0.003351
+    fib(400)  # 0.003351
     print('Time run:', time.perf_counter() - start)
 
     start = time.perf_counter()
@@ -60,13 +60,13 @@ def main():
     print('Time run:', time.perf_counter() - start)
 
     start = time.perf_counter()
-    fib(400)  # 0.003351
+    fib(700)  # 0.003351
     print('Time run:', time.perf_counter() - start)
 
-    long_sum(10 ** 8)  # 0.003351
-    long_sum(10 ** 8)  # 0.003351
+    long_sum(10 ** 8)  # 6.1
+    long_sum(10 ** 8)  # 2*10**-6
     time.sleep(20)
-    long_sum(10 ** 8)  # 0.003351
+    long_sum(10 ** 8)
     long_sum(10 ** 8)
 
 
