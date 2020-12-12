@@ -7,7 +7,7 @@ _TIMER = 1
 
 
 def _parse(line: list) -> dict:
-    date = datetime(*map(int, (line.pop(0)).split("-")), *map(int, line.pop(0).split(":"))).
+    date = datetime(*map(int, (line.pop(0)).split("-")), *map(int, line.pop(0).split(":")))
     value = " ".join(line)
     return {pickle.dumps(date): value}
 
