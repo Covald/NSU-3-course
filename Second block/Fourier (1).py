@@ -10,7 +10,7 @@ def main():
     """
     _FD = 1024  # sampling frequency 1/Td
     _TIME = 20  # sec
-    _BORDER = 0.40  # граница среза от макс аплитуды
+    _BORDER = 0.00001  # граница среза от макс аплитуды
 
     _F_FIRST = 11
     _F_SECOND = 29
@@ -68,7 +68,7 @@ def main():
 
     frq = rfftfreq(len_of_array, 1. / _FD)
 
-    spectrum = rfft(signal) / len_of_array  # fft computing and normalization
+    spectrum = rfft(signal_with_noise) / len_of_array  # fft computing and normalization
 
     border = amax(absolute(spectrum)) * _BORDER  # Режем шум по % от максимальной амплитуды
     spectrum_cut = spectrum.copy()
@@ -79,10 +79,10 @@ def main():
     xlabel('Freq (Hz)')
     ylabel('|Y(freq)|')
 
-    signal = irfft(spectrum_cut) * len_of_array
+    signal_without_noise = irfft(spectrum_cut) * len_of_array
 
     subplot(233).grid(True)
-    plot(t / _FD, signal, "red")
+    plot(t / _FD, signal_without_noise, "red")
     xlabel('Time')
     ylabel('Amplitude')
 
