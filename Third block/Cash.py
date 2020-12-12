@@ -34,11 +34,15 @@ def caching(timeout=600):
     return param_decorator
 
 
-@caching()
-def fib(num):
-    if num < 2:
-        return num
-    return fib(num - 1) + fib(num - 2)
+@time_of_function
+def fibonachi(n):
+    @caching()
+    def fib(num):
+        if num < 2:
+            return num
+        return fib(num - 1) + fib(num - 2)
+
+    return fib(n)
 
 
 @time_of_function
@@ -51,19 +55,11 @@ def long_sum(n):
 
 
 def main():
-    start = time.perf_counter()
-    fib(400)  # 0.003351
-    print('Time run:', time.perf_counter() - start)
+    fibonachi(400)  # 0.003351
 
-    start = time.perf_counter()
-    fib(400)  # 0.37117
-    print('Time run:', time.perf_counter() - start)
+    fibonachi(400)  # 0.37117
 
-    start = time.perf_counter()
-    fib(700)  # 0.003351
-    print('Time run:', time.perf_counter() - start)
-
-    long_sum(10 ** 8)  # 6.1
+    long_sum(10 ** 8)  # 6
     long_sum(10 ** 8)  # 2*10**-6
     time.sleep(20)
     long_sum(10 ** 8)
