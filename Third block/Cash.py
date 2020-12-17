@@ -48,10 +48,10 @@ def fibonachi(n):
 @time_of_function
 @caching(10)
 def long_sum(n):
-    sum = 0
+    summa = 0
     for i in range(n):
-        sum += i
-    return sum
+        summa += i
+    return summa
 
 
 def main():
