@@ -8,7 +8,7 @@ def main():
     """
     Settings
     """
-    _FD = 1024  # sampling frequency 1/Td
+    _FD = 200  # sampling frequency 1/Td
     _TIME = 20  # sec
     _BORDER = 0.15  # граница среза от макс аплитуды
 
@@ -26,7 +26,7 @@ def main():
         """
         frequency = rfftfreq(n, 1. / fd)
 
-        _spectrum = rfft(_signal) / n   # fft computing and normalization
+        _spectrum = rfft(_signal) / n * 2  # fft computing and normalization
 
         subplot(pos).grid(True)  # plotting the spectrum
         plot(frequency, np_abs(_spectrum), 'r')
@@ -84,7 +84,7 @@ def main():
     """
     frq = rfftfreq(len_of_array, 1. / _FD)
 
-    spectrum = rfft(signal_with_noise) / len_of_array  # fft computing and normalization
+    spectrum = rfft(signal_with_noise) / len_of_array * 2 # fft computing and normalization
     """
     Ищем максимальное значение в графике спектра, и берем _BORDER % от него в качестве границы,
     по которой будем отсекать частоты
@@ -98,7 +98,7 @@ def main():
     xlabel('Freq (Hz)')
     ylabel('|Y(freq)|')
 
-    signal_without_noise = irfft(spectrum_cut) * len_of_array  # Обратное фурье и нормировка
+    signal_without_noise = irfft(spectrum_cut) * len_of_array / 2  # Обратное фурье и нормировка
 
     subplot(233).grid(True)
     plot(t, signal, "b")
