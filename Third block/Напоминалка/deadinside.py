@@ -15,6 +15,7 @@ def _parse(line: list) -> dict:
 def _load_from_file(file="Names and dates.txt"):
     test = {}
     with open(file, "r") as f:
+        print(list(f))
         for line in f:
             l = line.split()
             test.update(_parse(l))
@@ -29,7 +30,7 @@ def main():
     dict_of_file = _load_from_file()
     while True:
         now = datetime.now()
-        if now.  in map(pickle.loads, dict_of_file.keys()):
+        if now  in map(pickle.loads, dict_of_file.keys()):
             send_email(dict_of_file.get(pickle.dumps(now+_TIMER)))
 
 

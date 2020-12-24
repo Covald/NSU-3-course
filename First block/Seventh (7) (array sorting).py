@@ -24,3 +24,5 @@ print(f"Sorted by length - {sorted(array_string, key=len)}")
 print(f"tuple of string - {tuple_string}")
 print(f"sorted by lekcika - {sorted(tuple_string)}")
 print(f"Sorted by len - {sorted(tuple_string, key=len)}")
+
+
