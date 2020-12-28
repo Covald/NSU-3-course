@@ -4,36 +4,44 @@ from datetime import datetime
 import pickle
 import smtplib
 import os
-import envi
+from authenticate import LOGIN, PASSWORD
 
 HOST = "smtp.gmail.com"
 PORT = 465
-TO = "rezin.p@gmail.com"
+TO = ["rezin.p@gmail.com"]
 FROM = "p.rezin@g.nsu.ru"
-
-LOGIN = os.environ.get("LOGIN")
-PASSWORD = os.environ.get("PASSWORD")
+SUBJECT = "Subject"
 
 
 def _parse(line: list) -> dict:
+    """
+    Парсим строку с напоминанием и составляем словарь вида {дамп объекта datetime : текст напоминания}
+    """
     date = datetime(*map(int, (line.pop(0)).split("-")), *map(int, line.pop(0).split(":")))
     value = " ".join(line)
     return {pickle.dumps(date): value}
 
 
-def _load_from_file(file="Names and dates.txt"):
+def _load_from_file(file: str = "Names and dates.txt") -> dict:
+    """
+    Собираем из файла все строки, парсим и
+    формируем конечный словарь вида {дамп объекта datetime : текст напоминания}
+    """
     test = {}
     with open(file, "r") as f:
-        for line in f:
+        for line in f:  # type: str
             print(line)
-            l = line.split()
-            test.update(_parse(l))
+            split_line = line.split()
+            test.update(_parse(split_line))
     return test
 
 
-def create_message(sender, to, subject, message_text):
+def create_message(sender: str, to: list, subject: str, message_text: str) -> str:
+    """
+    Собираем сообщение по формату
+    """
     sent_from = sender
-    to = [to]
+    to = to
     subject = subject
     body = message_text
 
@@ -47,37 +55,19 @@ def create_message(sender, to, subject, message_text):
     return email_text
 
 
-def send_email(item):
-    print('asd') # abxnntlgzzkccdpe
-    LOGIN = os.environ.get("LOGIN")
-    PASSWORD = os.environ.get("PASSWORD")
-
-    sent_from = LOGIN
-    to = ['me@gmail.com', 'bill@gmail.com']
-    subject = 'OMG Super Important Message'
-    body = item
-
-    email_text = """\
-    From: %s
-    To: %s
-    Subject: %s
-
-    %s
-    """ % (sent_from, ", ".join(to), subject, body)
-
+def send_email(item: str) -> None:
     try:
         server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-        server.ehlo()
-        #server.starttls()
-        server.login(LOGIN, PASSWORD)
-        server.sendmail(LOGIN, TO, email_text)
+        print(server.ehlo())
+        email_text = create_message(FROM, TO, SUBJECT, item)
+        print(email_text)
+        print(server.login(LOGIN, PASSWORD))
+        server.sendmail(FROM, TO, email_text)
     except Exception as err:
         print(f"\n Error - {err} \n")
 
 
-
 def main():
-    envi.setenv()
     dict_of_file = _load_from_file()
     print(dict_of_file)
     while True:
